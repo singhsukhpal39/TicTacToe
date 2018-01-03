@@ -6,8 +6,6 @@ import java.awt.event.*;
 import java.awt.GridLayout;
 /**
  *
- * 
- * 
  * Player   => Symbol: O  Player Number: 1
  * Computer => Symbol: X Player Number: -1
  * 
