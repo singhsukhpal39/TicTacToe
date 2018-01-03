@@ -1,4 +1,4 @@
-
+//TicTacToe for Player against Computer
 package tictactoe;
 
 import javax.swing.*;
@@ -8,7 +8,7 @@ import java.awt.GridLayout;
  *
  * Player   => Symbol: O  Player Number: 1
  * Computer => Symbol: X Player Number: -1
- * 
+ *
  */
 public class TicTacToe {
 
@@ -17,9 +17,9 @@ public class TicTacToe {
     static JButton[] b=new JButton[9];
     static Icon x=new ImageIcon("x.png");
     static Icon o=new ImageIcon("o.png");
-    static int pl=1;  
+    static int pl=1;
     public static void main(String[] args) {
-        
+
        f.setLayout(new GridLayout(3,3));
        f.setLocation(600,200);
        f.setSize(600,600);
@@ -29,18 +29,18 @@ public class TicTacToe {
            f.add(b[i]);
            a[i]=0;
        }
-       
+
        Handler h=new Handler();
        for(int i=0;i<9;i++)b[i].addActionListener(h);
        f.setVisible(true);
-      
+
     }
-    
+
     static void toggle()
     {
         pl*=-1;
     }
-    
+
     static String possibleMoves()
     {
         String list="";
@@ -60,8 +60,8 @@ public class TicTacToe {
         }
         return bestMove;
     }
-    
-    
+
+
     static int getRating(String move)
     {   int rating=0;
         makeMove(move);
@@ -73,20 +73,20 @@ public class TicTacToe {
             {
                makeMove(moves.substring(i,i+1));
                 if(checkWin())  rating-=1000;
-                
+
                 undoMove(moves.substring(i,i+1));
             }
         }
         undoMove(move);
         return rating;
     }
-    
+
     static void makeMove(String move)
     {
-       
+
         a[Integer.parseInt(move)]=pl;
         toggle();
-        
+
     }
     static void undoMove(String move)
     {
@@ -103,20 +103,20 @@ public class TicTacToe {
             if(i<3){
                 if(a[i]==a[i+3] && a[i]==a[i+6] && a[i]!=0)flag=true;
             }
-            
+
         }
         if(a[0]==a[4] && a[0]==a[8] && a[0]!=0)flag=true;
         if(a[2]==a[4] && a[2]==a[6] && a[2]!=0)flag=true;
         return flag;
     }
-    
+
     static boolean checkDraw()
     {
         boolean flag=true;
         for(int i=0;i<9;i++)if(a[i]==0)flag=false;
         return flag;
     }
-    
+
     static void checkBoard()
     {
          if(checkWin()){
@@ -141,28 +141,28 @@ public class TicTacToe {
                     else System.exit(0);
                 }
     }
-    
+
     static class Handler implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent ae)
         {
-           for(int i=0;i<9;i++) 
+           for(int i=0;i<9;i++)
             if(b[i]==ae.getSource()){
                 if(a[i]==0)
                 {
                  if(pl==1){b[i].setIcon(x); toggle(); a[i]=1;}
                     else {b[i].setIcon(o); toggle(); a[i]=-1;}
-                 
+
                  checkBoard();
                 String move=getBestMove();
                 makeMove(move); b[Integer.parseInt(move)].setIcon(o);
                 checkBoard();
                 }
-                
+
                }
-           
-             
+
+
         }
     }
 
